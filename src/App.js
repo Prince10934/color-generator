@@ -4,7 +4,7 @@ import SingleColor from "./SingleColor";
 const App = () => {
   const [color, setColor] = useState("#03a9f4");
   const [error, setError] = useState(false);
-  const [colorList,setColorList] = useState([]);
+  const [colorList, setColorList] = useState([]);
   const handleOnChange = (e) => {
     setColor(e.target.value);
     setError(false);
@@ -14,7 +14,6 @@ const App = () => {
     try {
       const colors = new Values(color).all(10);
       setColorList(colors);
-      console.log(colors);
     } catch {
       setError(true);
     }
@@ -27,8 +26,7 @@ const App = () => {
           <input
             type="text"
             className={`picker ${error ? "error" : null}`}
-            value={color}
-            placeholder="Enter Value Of Color"
+            placeholder={color}
             onChange={handleOnChange}
           />
           <button className="btn" type="submit">
@@ -37,11 +35,16 @@ const App = () => {
         </form>
       </section>
       <section className="colorContainer">
-        {
-          colorList.map((color)=>{
-            return <SingleColor key={color.rgb} color={color.rgb} weight={color.weight} />
-          })
-        }
+        {colorList.map((color) => {
+          return (
+            <SingleColor
+              key={color.rgb}
+              color={color.rgb}
+              weight={color.weight}
+              type={color.type}
+            />
+          );
+        })}
       </section>
     </main>
   );
